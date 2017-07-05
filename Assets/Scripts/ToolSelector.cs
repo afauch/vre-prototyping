@@ -21,6 +21,7 @@ public class ToolSelector : MonoBehaviour {
     [HideInInspector] public LeftRight _controller;
 
     public GameObject[] _toolModelsV1;
+    public GameObject[] _toolModelsV2;
     public GameObject _lToolHolderParent;
     public GameObject _rToolHolderParent;
     public GameObject _toolHolderParent;
@@ -83,6 +84,7 @@ public class ToolSelector : MonoBehaviour {
                 GameObject.Instantiate(_toolModelsV1[toolIndex], _toolHolderParent.transform);
                 break;
             case ToolModeRevision.v2:
+                GameObject.Instantiate(_toolModelsV2[toolIndex], _toolHolderParent.transform);
                 break;
             default:
                 break;
