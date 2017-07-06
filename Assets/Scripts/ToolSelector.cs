@@ -22,6 +22,10 @@ public class ToolSelector : MonoBehaviour {
 
     public GameObject[] _toolModelsV1;
     public GameObject[] _toolModelsV2;
+
+    [HideInInspector] public GameObject _toolLDefault;
+    [HideInInspector] public GameObject _toolRDefault;
+
     public GameObject _lToolHolderParent;
     public GameObject _rToolHolderParent;
     public GameObject _toolHolderParent;
@@ -33,8 +37,33 @@ public class ToolSelector : MonoBehaviour {
         _toolHolderParent = _lToolHolderParent; // left by default
         Debug.Log(_toolHolderParent.gameObject.name);
 
-        GameObject.Instantiate(_toolModelsV1[0], _lToolHolderParent.transform);
-        GameObject.Instantiate(_toolModelsV1[1], _rToolHolderParent.transform);
+        // Instantiate new tool
+        switch (_revision)
+        {
+            case ToolModeRevision.v1:
+                try
+                {
+                    _toolLDefault = GameObject.Instantiate(_toolModelsV1[0], _lToolHolderParent.transform);
+                    _toolRDefault = GameObject.Instantiate(_toolModelsV1[1], _rToolHolderParent.transform);
+                } catch
+                {
+                    Debug.Log("Error");
+                }
+                break;
+            case ToolModeRevision.v2:
+                try
+                {
+                    _toolLDefault = GameObject.Instantiate(_toolModelsV2[0], _lToolHolderParent.transform);
+                    _toolRDefault = GameObject.Instantiate(_toolModelsV2[1], _rToolHolderParent.transform);
+                }
+                catch
+                {
+                    Debug.Log("Error");
+                }
+                break;
+            default:
+                break;
+        }
 
     }
 
