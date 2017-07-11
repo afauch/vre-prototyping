@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ToolModeRevision
 {
     v1,
-    v2
+    v2,
+    v3
 }
 
 public enum LeftRight
@@ -22,6 +23,7 @@ public class ToolSelector : MonoBehaviour {
 
     public GameObject[] _toolModelsV1;
     public GameObject[] _toolModelsV2;
+    public GameObject[] _toolModelsV3;
 
     [HideInInspector] public GameObject _toolLDefault;
     [HideInInspector] public GameObject _toolRDefault;
@@ -55,6 +57,17 @@ public class ToolSelector : MonoBehaviour {
                 {
                     _toolLDefault = GameObject.Instantiate(_toolModelsV2[0], _lToolHolderParent.transform);
                     _toolRDefault = GameObject.Instantiate(_toolModelsV2[1], _rToolHolderParent.transform);
+                }
+                catch
+                {
+                    Debug.Log("Error");
+                }
+                break;
+            case ToolModeRevision.v3:
+                try
+                {
+                    _toolLDefault = GameObject.Instantiate(_toolModelsV3[0], _lToolHolderParent.transform);
+                    _toolRDefault = GameObject.Instantiate(_toolModelsV3[1], _rToolHolderParent.transform);
                 }
                 catch
                 {
@@ -114,6 +127,9 @@ public class ToolSelector : MonoBehaviour {
                 break;
             case ToolModeRevision.v2:
                 GameObject.Instantiate(_toolModelsV2[toolIndex], _toolHolderParent.transform);
+                break;
+            case ToolModeRevision.v3:
+                GameObject.Instantiate(_toolModelsV3[toolIndex], _toolHolderParent.transform);
                 break;
             default:
                 break;
