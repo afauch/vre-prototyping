@@ -7,8 +7,6 @@ public class SwipeToClone : MonoBehaviour {
 
     VRTK_InteractGrab _vrtkInteractGrab;
 
-    public AudioClip _deleteSound;
-
     // Use this for initialization
     void Start()
     {

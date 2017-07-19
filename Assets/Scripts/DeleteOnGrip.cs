@@ -32,15 +32,7 @@ public class DeleteOnGrip : MonoBehaviour {
         GameObject g = _vrtkInteractGrab.GetGrabbedObject();
         if (g != null)
         {
-            Debug.Log("Deleted: " + g.name);
-
-            // VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(_hand), 1.0f, 1.0f, 1.0f);
-            // VRTK_ControllerHaptics.TriggerHapticPulse(e.controllerReference, 1.0f, 1.0f, 1.0f);
-            
-            TransitionUtility.TriggerHapticsAndAudio(e.controllerReference.model, e.controllerReference, 1.0f, _deleteSound);
-
-            GameObject.Destroy(g);
-
+            ObjectActions.TrashObject(g, e.controllerReference, _deleteSound);
         }
 
     }
