@@ -16,20 +16,16 @@ public class ContextDial : MonoBehaviour
 
     bool _isDisplayed = false;
 
+    public GameObject[] _options;
+    public float[] _incrementValues;
+
     public GameObject _contextMenu;
     public Transform _contextMenuSpawn;
 
     // Dial Parameters
-    public LayerMask _layerMask;
-    public float _maxDistance = 2.0f;
-
-    [Header("Pointer Appearance")]
-    private LineRenderer _lr;
-    public Material _lineMaterial;
-    public Color _lineColor;
-    public float _lineWidth = 0.01f;
-    private RaycastHit _hitInfo;
-
+    private Vector3 _startEulerAngles;
+    private float _startZ;
+    
     [HideInInspector] public DialAction _selectedAction;
 
     // Use this for initialization
@@ -43,7 +39,7 @@ public class ContextDial : MonoBehaviour
 
         _vrtkInteractGrab = _vrtkInteractGrab ?? this.gameObject.GetComponent<VRTK_InteractGrab>();
 
-        InitLineRenderer();
+        InitIncrementSize();
 
     }
 
@@ -54,10 +50,7 @@ public class ContextDial : MonoBehaviour
         if (_isDisplayed)
         {
             //_contextMenu.transform.LookAt(Vector3.up);
-            GenerateRaycast();
-        } else
-        {
-            RenderLine(_lr, false);
+            CalculateSelection();
         }
 
     }
@@ -69,10 +62,10 @@ public class ContextDial : MonoBehaviour
 
         _contextMenu.transform.position = _contextMenuSpawn.position;
         _contextMenu.transform.rotation = _contextMenuSpawn.rotation;
-
         _contextMenu.SetActive(true);
 
-        
+        _startEulerAngles = _origin.rotation.eulerAngles;
+        _startZ = _origin.rotation.eulerAngles.z;
 
         _isDisplayed = true;
 
@@ -89,10 +82,68 @@ public class ContextDial : MonoBehaviour
 
     }
 
-    void GenerateRaycast ()
+    void InitIncrementSize()
     {
 
-        RenderLine(_lr, true);
+
+        // Divide up the space -90 to 90 based on the 
+        // number of options
+        float incrementSize = 180 / _options.Length;
+
+        _incrementValues = new float[_options.Length];
+
+        for (int i = 0; i < _options.Length; i++)
+        {
+            _incrementValues[i] = (-90 + (incrementSize * i));
+        }
+
+        Debug.Log(_incrementValues);
+
+    }
+
+    void CalculateSelection()
+    {
+
+        Vector3 currentEulerAngles = _origin.transform.rotation.eulerAngles;
+        float currentZ = _origin.transform.rotation.eulerAngles.z;
+
+        float deltaAngle = Mathf.DeltaAngle(_startZ, currentZ);
+        deltaAngle *= -1.0f;
+        Debug.Log(deltaAngle);
+
+        GameObject selectedGameObject = null;
+
+        // Select the right gameObject
+        for(int i = 0; i < _options.Length; i++)
+        {
+            // is it above the base increment?
+            if(deltaAngle > _incrementValues[i]) {
+
+                // is it below the next increment
+                if (i+1 == _options.Length || deltaAngle < _incrementValues[i+1])
+                {
+                    selectedGameObject = _options[i];
+                    break;
+
+                } else
+                {
+                    _options[i].SendMessage("DoHoverExit");
+                    continue;
+                }
+
+            } else
+            {
+                _options[i].SendMessage("DoHoverExit");
+                continue;
+            }
+
+        }
+
+        selectedGameObject.SendMessage("DoHoverEnter");
+        _selectedAction = selectedGameObject.GetComponent<DialUI>()._action;
+
+        Debug.Log(selectedGameObject.name);
+
 
     }
 
@@ -116,44 +167,6 @@ public class ContextDial : MonoBehaviour
         //        break;
         //}
 
-
-    }
-
-
-    void InitLineRenderer()
-    {
-
-        _lr = _origin.gameObject.AddComponent<LineRenderer>();
-        Debug.Log(_lr);
-        _lr.enabled = false;
-        _lr.material = _lineMaterial;
-        _lr.startColor = _lineColor;
-        _lr.endColor = _lineColor;
-        _lr.widthMultiplier = _lineWidth;
-        _lr.startWidth = _lineWidth;
-        _lr.endWidth = _lineWidth;
-
-
-    }
-
-    void RenderLine(LineRenderer lr, bool toggle)
-    {
-        // Debug.Log("RenderLine called");
-        lr.enabled = toggle;
-
-        if (lr.enabled)
-        {
-
-
-
-            Vector3[] linePositions = new Vector3[]
-            {
-                   _origin.transform.position,
-                   (_origin.transform.forward)
-            };
-            lr.SetPositions(linePositions);
-
-        }
 
     }
 

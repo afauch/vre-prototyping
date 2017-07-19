@@ -4,17 +4,20 @@ using UnityEngine;
 
 public enum DialAction
 {
+    None,
     Clone,
     Delete
 }
 
-public class Dial : MonoBehaviour
+public class DialUI : MonoBehaviour
 {
 
     public Material _hoverMaterial;
     private Material _defaultMaterial;
     private Material _currentMaterial;
     private Renderer _renderer;
+
+    bool _isHovered = false;
 
     public DialAction _action;
 
@@ -31,26 +34,35 @@ public class Dial : MonoBehaviour
     void Update()
     {
 
+
     }
 
-    private void OnTriggerStay(Collider other)
+    public void DoHoverEnter()
     {
-        _renderer.material = _hoverMaterial;
 
-        // is there a ContextMenu component on this object?
-        ContextDial cd = other.gameObject.GetComponentInParent<ContextDial>();
-        if (cd != null)
+        if (!_isHovered)
         {
-            // Debug.Log("ContextMenu component detected");
-            cd._selectedAction = _action;
+
+            Debug.Log(this.gameObject.name + " DoHover called");
+            _renderer.material = _hoverMaterial;
+            TransitionUtility.TriggerHapticPulse(Hand.Right, 1.0f);
+            _isHovered = true;
+
         }
 
-
     }
 
-    private void OnTriggerExit(Collider other)
+    public void DoHoverExit()
     {
-        _renderer.material = _defaultMaterial;
-    }
 
+        if (_isHovered)
+        {
+
+            _renderer.material = _defaultMaterial;
+            _isHovered = false;
+
+        }
+
+    }
+    
 }
