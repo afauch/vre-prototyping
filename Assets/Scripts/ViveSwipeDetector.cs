@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
-public class ViveSwipeDetector : NetworkBehaviour {
+public class ViveSwipeDetector : MonoBehaviour {
 	[SerializeField]
 	SteamVR_TrackedObject trackedObj;
 	private const int mMessageWidth  = 200;
@@ -62,7 +62,7 @@ public class ViveSwipeDetector : NetworkBehaviour {
 			trackingSwipe = false;
 			trackingSwipe = true;
 			checkSwipe = true;
-			Debug.Log ("Tracking Finish");
+			// Debug.Log ("Tracking Finish");
 		}
 		else if(trackingSwipe)
 		{
@@ -82,7 +82,7 @@ public class ViveSwipeDetector : NetworkBehaviour {
 			Vector2 swipeVector = endPosition - mStartPosition;
 
 			float velocity = swipeVector.magnitude/deltaTime;
-            Debug.Log(velocity);
+            // Debug.Log(velocity);
             if (velocity > mMinVelocity &&
 				swipeVector.magnitude > mMinSwipeDist) {
                 // if the swipe has enough velocity and enough distance
@@ -126,20 +126,24 @@ public class ViveSwipeDetector : NetworkBehaviour {
 	private void OnSwipeLeft() {
 		Debug.Log ("Swipe Left");
 		mMessageIndex = 1;
+        // gameObject.SendMessage("DoSwipeLeft");
 	}
 
 	private void OnSwipeRight() {
 		Debug.Log ("Swipe right");
 		mMessageIndex = 2;
-	}
+        gameObject.SendMessage("DoSwipeRight");
+    }
 
 	private void OnSwipeTop() {
 		Debug.Log ("Swipe Top");
 		mMessageIndex = 3;
-	}
+        // gameObject.SendMessage("DoSwipeTop");
+    }
 
 	private void OnSwipeBottom() {
 		Debug.Log ("Swipe Bottom");
 		mMessageIndex = 4;
-	}
+        // gameObject.SendMessage("DoSwipe");
+    }
 }

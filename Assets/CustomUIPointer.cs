@@ -60,11 +60,6 @@ public class CustomUIPointer : MonoBehaviour {
     
     }
 
-    /// <summary>
-    /// Custom Trigger Click Handling
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     void DoTriggerClicked(object sender, ControllerInteractionEventArgs e)
     {
         Debug.Log("Trigger Clicked");
@@ -72,14 +67,14 @@ public class CustomUIPointer : MonoBehaviour {
 
     void DoHitUI(RaycastHit hit)
     {
-        Debug.Log("Intersected 3D UI: " + hit.collider.gameObject.name);
+        // Debug.Log("Intersected 3D UI: " + hit.collider.gameObject.name);
         RenderLine(_lr, true);
  
     }
 
     void RenderLine(LineRenderer lr, bool toggle)
     {
-        Debug.Log("RenderLine called");
+        // Debug.Log("RenderLine called");
         lr.enabled = toggle;
 
         if (lr.enabled)
