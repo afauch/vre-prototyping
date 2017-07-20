@@ -62,6 +62,9 @@ public class ContextDial : MonoBehaviour
 
         _contextMenu.transform.position = _contextMenuSpawn.position;
         _contextMenu.transform.rotation = _contextMenuSpawn.rotation;
+        Vector3 upRotation = _contextMenu.transform.rotation.eulerAngles;
+        upRotation.z = Vector3.up.z;
+
         _contextMenu.SetActive(true);
 
         _startEulerAngles = _origin.rotation.eulerAngles;
@@ -90,14 +93,20 @@ public class ContextDial : MonoBehaviour
         // number of options
         float incrementSize = 180 / _options.Length;
 
-        _incrementValues = new float[_options.Length];
+        _incrementValues = new float[_options.Length + 1];
 
         for (int i = 0; i < _options.Length; i++)
         {
             _incrementValues[i] = (-90 + (incrementSize * i));
         }
 
-        Debug.Log(_incrementValues);
+        _incrementValues[_options.Length] = 180;
+
+        for (int i = 0; i < _incrementValues.Length; i++)
+        {
+
+            Debug.Log(_incrementValues[i]);
+        }
 
     }
 
@@ -116,17 +125,19 @@ public class ContextDial : MonoBehaviour
         // Select the right gameObject
         for(int i = 0; i < _options.Length; i++)
         {
-            // is it above the base increment?
-            if(deltaAngle > _incrementValues[i]) {
 
-                // is it below the next increment
-                if (i+1 == _options.Length || deltaAngle < _incrementValues[i+1])
+            // are we above the base value for this option?
+            if(deltaAngle > _incrementValues[i])
+            {
+
+                // are we less than the next one?
+                if(deltaAngle < _incrementValues[i+1])
                 {
+                    // Yes - this is the option
                     selectedGameObject = _options[i];
-                    break;
-
                 } else
                 {
+                    // No - move on to the next option and check
                     _options[i].SendMessage("DoHoverExit");
                     continue;
                 }
@@ -152,20 +163,20 @@ public class ContextDial : MonoBehaviour
 
         Debug.Log("DoAction called");
 
-        //switch (action)
-        //{
-        //    case DialAction.Clone:
-        //        Debug.Log("Clone");
-        //        ObjectActions.CloneObject(grabbedObject);
-        //        break;
-        //    case DialAction.Delete:
-        //        ObjectActions.TrashObject(grabbedObject, controllerReference, _deleteSound);
-        //        Debug.Log("Delete");
-        //        break;
-        //    default:
-        //        Debug.Log("No action");
-        //        break;
-        //}
+        switch (action)
+        {
+            case DialAction.Clone:
+                Debug.Log("Clone");
+                ObjectActions.CloneObject(grabbedObject);
+                break;
+            case DialAction.Delete:
+                ObjectActions.TrashObject(grabbedObject, controllerReference, _deleteSound);
+                Debug.Log("Delete");
+                break;
+            default:
+                Debug.Log("No action");
+                break;
+        }
 
 
     }
