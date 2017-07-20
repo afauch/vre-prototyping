@@ -10,7 +10,8 @@ public class CustomUIPointer : MonoBehaviour {
     public LayerMask _layerMask;
     public float _maxDistance = 100.0f;
 
-    [Header ("Pointer Appearance")]
+    [Header("Pointer Appearance")]
+    public GameObject _cursor;
     private LineRenderer _lr;
     public Material _lineMaterial;
     public Color _lineColor;
@@ -57,6 +58,9 @@ public class CustomUIPointer : MonoBehaviour {
         _lr.startWidth = _lineWidth;
         _lr.endWidth = _lineWidth;
 
+        // Init Cursor
+        _cursor.transform.position = Vector3.zero;
+        _cursor.SetActive(false);
     
     }
 
@@ -76,6 +80,8 @@ public class CustomUIPointer : MonoBehaviour {
     {
         // Debug.Log("RenderLine called");
         lr.enabled = toggle;
+        _cursor.SetActive(toggle);
+
 
         if (lr.enabled)
         {
@@ -86,6 +92,9 @@ public class CustomUIPointer : MonoBehaviour {
                    _hitInfo.point
             };
             lr.SetPositions(linePositions);
+
+            // Set cursor position
+            _cursor.transform.position = _hitInfo.point;
 
         }
 
