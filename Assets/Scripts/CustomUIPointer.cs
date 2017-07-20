@@ -96,6 +96,9 @@ public class CustomUIPointer : MonoBehaviour {
             // Set cursor position
             _cursor.transform.position = _hitInfo.point;
 
+        } else
+        {
+            _hitInfo.collider.gameObject.SendMessage("DoRaycastEnd");
         }
 
     }

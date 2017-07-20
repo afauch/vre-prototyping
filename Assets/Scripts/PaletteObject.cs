@@ -6,76 +6,85 @@ using VRTK.UnityEventHelper;
 
 public class PaletteObject : MonoBehaviour {
 
-    private GameObject _spawnedObject;
-    private GameObject _originPlaceholder;
+    public VRTK_ControllerEvents _vrtkControllerEvents;
+    public GameObject _objectToSpawn;
 
-    private bool _hasSpawned;
+    public Color _hoverMaterialColor;
+    public float _transitionTime = 0.3f;
 
-	// Use this for initialization
-	void Start () {
+    private Color _defaultMaterialColor;
+    private Renderer _renderer;
 
-        VRTK_InteractableObject vrtkInteractableObject = this.gameObject.GetComponent<VRTK_InteractableObject>();
-        this.gameObject.AddComponent<VRTK_InteractableObject_UnityEvents>();
-        VRTK_InteractableObject_UnityEvents vrtkInteractableObjectUnityEvents = this.gameObject.GetComponent<VRTK_InteractableObject_UnityEvents>();
-            
-            // GetComponent<VRTK_InteractableObject_UnityEvents>();
+    private Vector3 _defaultButtonScale;
+    public float _hoverScaleMultiplier;
 
-        vrtkInteractableObjectUnityEvents.OnGrab.AddListener(OnGrab);
-        vrtkInteractableObjectUnityEvents.OnUngrab.AddListener(OnUngrab);
+    private bool _isSelected = false;
 
-        _originPlaceholder = PrototypeGlobals._instance._originPlaceholder;
+    void Start()
+    {
 
-        _hasSpawned = false;
+        // listen for controller events
+        _vrtkControllerEvents.TriggerClicked += new ControllerInteractionEventHandler(DoTriggerClicked);
+
+        _renderer = this.gameObject.GetComponent<Renderer>();
+        _defaultMaterialColor = _renderer.material.color;
+
+        _defaultButtonScale = this.gameObject.transform.localScale;
+
+        // Reset object's orientation
+        _objectToSpawn.transform.position = Vector3.zero;
+        _objectToSpawn.transform.rotation = Quaternion.identity;
 
     }
 
-    // Event Listeners
 
-    void OnGrab (object o, InteractableObjectEventArgs e)
+    private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("ToolMenuButton" + gameObject.name + "OnTriggerStay called");
+        // StartCoroutine(LerpHelper.ColorFade(this.gameObject, _hoverMaterialColor, 0.001f, "Quintic"));
+        _renderer.material.color = _hoverMaterialColor;
 
-        Debug.Log("Object grabbed: " + this.gameObject.name);
-        if(!_hasSpawned)
-            StartSpawn(e.interactingObject.gameObject);
-    }
+        // Construct Vector3
+        Vector3 hoverScale = new Vector3(_defaultButtonScale.x, _defaultButtonScale.y * _hoverScaleMultiplier, _defaultButtonScale.z);
+        StartCoroutine(LerpHelper.LerpScaleWithEasing(this.gameObject, this.gameObject.transform.localScale, hoverScale, _transitionTime, "Quintic", false));
 
-    void OnUngrab(object o, InteractableObjectEventArgs e)
-    {
+        TransitionUtility.TriggerHapticPulse(Hand.Right, 0.2f);
 
-        Debug.Log("Object ungrabbed: " + this.gameObject.name);
-        EndSpawn();
-
-    }
-
-    void StartSpawn(GameObject controller)
-    {
-
-        // Spawn another placeholder in its place
-        GameObject newOriginal = GameObject.Instantiate(this.gameObject, this.gameObject.transform.parent);
-        Renderer rO = newOriginal.GetComponent<Renderer>();
-        rO.material.color = Color.green;
-
-
-        // Parent the object to the hand
-        this.transform.localScale *= 5.0f;
-        Renderer r = this.GetComponent<Renderer>();
-        r.material.color = Color.red;
-        this.transform.SetParent(controller.transform);
-
-        // this.GetComponent<Rigidbody>().isKinematic = true;
+        _isSelected = true;
 
     }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        StartCoroutine(LerpHelper.ColorFade(this.gameObject, _defaultMaterialColor, _transitionTime, "Quintic"));
+        StartCoroutine(LerpHelper.LerpScaleWithEasing(this.gameObject, this.gameObject.transform.localScale, _defaultButtonScale, _transitionTime, "Quintic", false));
+        Debug.Log("ToolMenuButton " + gameObject.name + "OnTriggerExit called");
 
-    void EndSpawn()
+        _isSelected = false;
+
+        // _renderer.material = _defaultMaterial;
+    }
+
+    private void DoTriggerClicked(object sender, ControllerInteractionEventArgs e)
     {
 
-        _hasSpawned = true;
+        if (this._isSelected)
+        {
+            Debug.Log(gameObject.name + " was clicked.");
+            SpawnInstance();
+        }
+    }
 
-        // change transform to world space
-        this.transform.SetParent(_originPlaceholder.transform);
+    private void SpawnInstance()
+    {
+        GameObject instance = GameObject.Instantiate(_objectToSpawn);
 
-        // make it grabbable
-        // _spawnedObject.GetComponent<VRTK_InteractableObject>().isGrabbable = true;
+        // get controller attach point
+        Rigidbody attachPoint = _vrtkControllerEvents.gameObject.GetComponent<VRTK_InteractGrab>().controllerAttachPoint;
+
+        instance.transform.position = attachPoint.gameObject.transform.position;
+
+
     }
 
 }
