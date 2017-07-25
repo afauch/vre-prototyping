@@ -45,7 +45,7 @@ public class IKControl : MonoBehaviour {
                     animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandObj.position);
                     animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandObj.rotation);
 
-                }        
+                }
                 
             }
             
