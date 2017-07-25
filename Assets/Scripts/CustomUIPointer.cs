@@ -98,7 +98,7 @@ public class CustomUIPointer : MonoBehaviour {
 
         } else
         {
-            _hitInfo.collider.gameObject.SendMessage("DoRaycastEnd");
+            // _hitInfo.collider.gameObject.SendMessage("DoRaycastEnd");
         }
 
     }
