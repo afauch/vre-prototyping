@@ -10,7 +10,10 @@ public class CustomUIPointer : MonoBehaviour {
     public LayerMask _layerMask;
     public float _maxDistance = 100.0f;
 
+
     [Header("Pointer Appearance")]
+    public bool _showLine = true;
+    public bool _showCursor = true;
     public GameObject _cursor;
     private LineRenderer _lr;
     public Material _lineMaterial;
@@ -79,27 +82,32 @@ public class CustomUIPointer : MonoBehaviour {
     void RenderLine(LineRenderer lr, bool toggle)
     {
         // Debug.Log("RenderLine called");
-        lr.enabled = toggle;
-        _cursor.SetActive(toggle);
 
-
-        if (lr.enabled)
+        if(toggle == true)
         {
 
-            Vector3[] linePositions = new Vector3[]
+            if(_showLine)
+                lr.enabled = true;
+
+            if(_showCursor)
+                _cursor.SetActive(true);
+
+        } else
+        {
+            lr.enabled = false;
+            _cursor.SetActive(false);
+        }
+
+        Vector3[] linePositions = new Vector3[]
             {
                    _origin.transform.position,
                    _hitInfo.point
             };
+
             lr.SetPositions(linePositions);
 
             // Set cursor position
             _cursor.transform.position = _hitInfo.point;
-
-        } else
-        {
-            // _hitInfo.collider.gameObject.SendMessage("DoRaycastEnd");
-        }
 
     }
 

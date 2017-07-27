@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/06 - dial.unity
-    guid: 46e55aa2f48509a429c14295b0a67810
+    path: Assets/Scenes/19 - rotate for comfort 1.unity
+    guid: 603e97a4c4b113643872eb1d488c59f5
