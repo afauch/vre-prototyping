@@ -19,7 +19,8 @@ public class VRE_Tool : MonoBehaviour {
 
     public bool _laserDefaultOn;
     public GameObject _token;
-    public VRE_UIElement_Page[] _toolOptionPages;
+    // public VRE_UIElement_Page[] _toolOptionPages;
+    public int _toolPageIndex;
 
     public void LoadTool()
     {
@@ -36,9 +37,9 @@ public class VRE_Tool : MonoBehaviour {
         VRE_Globals._instance._toolModel.ShowToken(_token);
 
         // Load up all pages in the panel
-        VRE_Globals._instance._toolPanel._pages = _toolOptionPages;
+        // VRE_Globals._instance._toolPanel._pages = _toolOptionPages;
         // Change the panel to the correct page
-        VRE_Globals._instance._toolPanel.ChangePageTo(_toolOptionPages[0]);
+        VRE_Globals._instance._toolPanel.ChangePageTo(_toolPageIndex);
 
         // Turn on the laser if necessary
         if(_laserDefaultOn)

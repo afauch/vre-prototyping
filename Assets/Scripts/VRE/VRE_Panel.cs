@@ -81,6 +81,9 @@ public class VRE_Panel : MonoBehaviour {
         _currentPage = _pages[0];
         _currentPageIndex = 0;
 
+        Debug.Log("Current Page for " + this.gameObject.name + " is " + _currentPage.gameObject.name);
+
+
 
     }
 

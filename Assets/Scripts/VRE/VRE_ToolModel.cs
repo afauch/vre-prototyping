@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class VRE_ToolModel : MonoBehaviour {
 
     public GameObject _toolModel;
     public Transform _tokenSlot;
+    public GameObject _currentToken;
 
     void Start ()
     {
         Hide();
+    }
+
+    void Update()
+    {
+
+        // Debug.Log("CurrentToken: " + _currentToken.name);
+
     }
 
     public void Hide()
@@ -24,10 +33,25 @@ public class VRE_ToolModel : MonoBehaviour {
 
     public void ShowToken(GameObject g)
     {
-        g.transform.SetParent(_tokenSlot);
-        g.transform.localPosition = Vector3.zero;
-        g.transform.localRotation = Quaternion.identity;
-        g.SetActive(true);
+
+        Debug.Log("Equipping Token " + g.name);
+
+        GameObject instance = GameObject.Instantiate(g);
+
+        instance.transform.SetParent(_tokenSlot);
+        instance.transform.localPosition = Vector3.zero;
+        instance.transform.localRotation = Quaternion.identity;
+        instance.SetActive(true);
+
+        _currentToken = instance;
+
+    }
+
+    public void DestroyToken()
+    {
+
+        Destroy(_currentToken);
+
     }
 
 }
