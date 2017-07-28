@@ -17,7 +17,7 @@ public class VRE_Cursor : MonoBehaviour {
         if (VRE_StateManager._instance._verbose)
             Debug.Log("VRE_Cursor called OnTriggerEnter for " + other.gameObject);
 
-        other.BroadcastMessage("DoCursorEnter");
+        other.BroadcastMessage("DoCursorEnter", SendMessageOptions.DontRequireReceiver);
         _activeGameObject = other.gameObject;
     }
 
@@ -26,7 +26,7 @@ public class VRE_Cursor : MonoBehaviour {
         if (VRE_StateManager._instance._verbose)
             Debug.Log("VRE_Cursor left " + _activeGameObject);
 
-        other.BroadcastMessage("DoCursorExit");
+        other.BroadcastMessage("DoCursorExit", SendMessageOptions.DontRequireReceiver);
         _activeGameObject = null;
     }
 
