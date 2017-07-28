@@ -6,9 +6,11 @@ using UnityEngine;
 public enum ToolType
 {
     Color,
+    Material,
     Clone,
+    Group,
     Stretch,
-    Physics
+    Delete
 }
 
 public class VRE_Tool : MonoBehaviour {
