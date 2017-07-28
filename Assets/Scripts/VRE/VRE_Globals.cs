@@ -24,6 +24,8 @@ public class VRE_Globals : MonoBehaviour {
     public VRE_ToolModel _toolModel;
     public Transform _uiToolTransform;
 
+    public Transform _worldParent;
+
     public VRE_Pointer _pointer;
 
     [Header ("Panels")]
