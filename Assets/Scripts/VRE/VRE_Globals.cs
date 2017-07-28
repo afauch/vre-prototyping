@@ -9,27 +9,29 @@ public class VRE_Globals : MonoBehaviour {
 
     public static VRE_Globals _instance;
 
+    [Header("Hands")]
     public GameObject _leftHandAvatarModel;
     public GameObject _rightHandAvatarModel;
-
     public GameObject _rightHandControllerEvents;
     public GameObject _leftHandControllerEvents;
 
+    [Header("UI - Top")]
     public GameObject _uiTop;
-    public GameObject _uiBottom;
-
     public Transform _uiTopTransform;
+    public VRE_Panel _toolPanel;
+
+    [Header("UI - Bottom")]
+    public GameObject _uiBottom;
     public Transform _uiBottomTransform;
 
+    [Header("UI - Right Hand")]
     public VRE_ToolModel _toolModel;
     public Transform _uiToolTransform;
 
+    [Header("General")]
     public Transform _worldParent;
-
     public VRE_Pointer _pointer;
 
-    [Header ("Panels")]
-    public VRE_Panel _toolPanel;
 
     [Header("Transition Defaults")]
     public float _quickFade;
@@ -58,6 +60,7 @@ public class VRE_Globals : MonoBehaviour {
 
     private void ApplyUIParentTransforms(GameObject uiGameObject, Transform parentTransform)
     {
+        Debug.Log("Applying parent transform " + parentTransform.gameObject.name + "to" + uiGameObject.name);
 
         uiGameObject.transform.SetParent(parentTransform);
         uiGameObject.transform.localPosition = Vector3.zero;
