@@ -50,7 +50,9 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
 
     void DoCursorEnter()
     {
-        Debug.Log("DoCursorEnter heard on " + this.gameObject.name);
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("DoCursorEnter heard on " + this.gameObject.name);
+
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Hover);
         VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.8f);
 
@@ -58,17 +60,27 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
 
     void DoCursorExit()
     {
-        Debug.Log("DoCursorExit called from " + this.gameObject.name);
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("DoCursorExit called from " + this.gameObject.name);
+
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Default);
-        VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.05f);
+        // VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.05f);
 
     }
 
     void DoSelect()
     {
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("DoSelect called from " + this.gameObject.name);
 
-        Debug.Log("DoSelect called from " + this.gameObject.name);
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Selected);
+
+    }
+
+    void ButtonAction()
+    {
+
+        
 
     }
 

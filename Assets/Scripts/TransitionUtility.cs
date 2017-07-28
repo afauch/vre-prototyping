@@ -49,7 +49,7 @@ public class TransitionUtility {
     public static AudioSource TryGetAudioSource(GameObject g)
     {
 
-        Debug.Log("TryGetAudioSource called");
+            Debug.Log("TryGetAudioSource called");
 
         AudioSource audioSource = g.GetComponent<AudioSource>();
         if(audioSource == null)

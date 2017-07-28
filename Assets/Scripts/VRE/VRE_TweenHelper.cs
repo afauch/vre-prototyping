@@ -24,8 +24,8 @@ public class VRE_TweenHelper
         Material m;
         m = SwapShaderToFadeMode(r.material);
 
-
-        Debug.Log("OpacityFade Called for " + g.name);
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("OpacityFade Called for " + g.name);
 
         // elapsedTime
         float elapsedTime = 0;
@@ -190,8 +190,8 @@ public class VRE_TweenHelper
     /// <returns></returns>
     public static IEnumerator TweenLocalPositionWithEasing(GameObject g, Vector3 start, Vector3 end, float time, string ease, bool destroy)
     {
-
-        Debug.Log("TweenLocalPositionWithEasing called for " + g.name + "with start at " + start + " and end at " + end);
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("TweenLocalPositionWithEasing called for " + g.name + "with start at " + start + " and end at " + end);
 
         float elapsedTime = 0;
 
@@ -266,8 +266,8 @@ public class VRE_TweenHelper
     /// <returns></returns>
     public static IEnumerator TweenLocalRotationWithEasing(GameObject g, Vector3 start, Vector3 end, float time, string ease, bool destroy)
     {
-
-        Debug.Log("TweenLocalRotationWithEasing called for " + g.name + "with start at " + start + " and end at " + end);
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("TweenLocalRotationWithEasing called for " + g.name + "with start at " + start + " and end at " + end);
 
         float elapsedTime = 0;
 
@@ -343,8 +343,8 @@ public class VRE_TweenHelper
     /// <returns></returns>
     public static IEnumerator TweenLocalScaleWithEasing(GameObject g, Vector3 start, Vector3 end, float time, string ease, bool destroy)
     {
-
-        Debug.Log("TweenLocalScaleWithEasing called for " + g.name + "with start at " + start + " and end at " + end);
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("TweenLocalScaleWithEasing called for " + g.name + "with start at " + start + " and end at " + end);
 
         float elapsedTime = 0;
 

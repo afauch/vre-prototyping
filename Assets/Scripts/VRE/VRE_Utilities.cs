@@ -32,8 +32,8 @@ public class VRE_Utilities : MonoBehaviour {
     /// <param name="toStateType"></param>
     public void ChangeStates(VRE_IUIElement uiElement, VRE_StateType toStateType)
     {
-
-        Debug.Log("VRE_Utilities ChangeStates called");
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("VRE_Utilities ChangeStates called");
 
         // What's the current state?
         VRE_State currentState = uiElement._states[uiElement._currentStateType];
@@ -119,7 +119,8 @@ public class VRE_Utilities : MonoBehaviour {
     public static AudioSource TryGetAudioSource(GameObject g)
     {
 
-        Debug.Log("TryGetAudioSource called");
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("TryGetAudioSource called");
 
         AudioSource audioSource = g.GetComponent<AudioSource>();
         if (audioSource == null)

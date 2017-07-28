@@ -14,7 +14,8 @@ public class VRE_Cursor : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("VRE_Cursor called OnTriggerEnter for " + other.gameObject);
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("VRE_Cursor called OnTriggerEnter for " + other.gameObject);
 
         other.BroadcastMessage("DoCursorEnter");
         _activeGameObject = other.gameObject;
@@ -22,7 +23,8 @@ public class VRE_Cursor : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("VRE_Cursor left " + _activeGameObject);
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("VRE_Cursor left " + _activeGameObject);
 
         other.BroadcastMessage("DoCursorExit");
         _activeGameObject = null;

@@ -21,8 +21,13 @@ public class VRE_Globals : MonoBehaviour {
     public Transform _uiTopTransform;
     public Transform _uiBottomTransform;
 
-    public GameObject _toolBaseModel;
+    public VRE_ToolModel _toolModel;
+    public Transform _uiToolTransform;
+
     public VRE_Pointer _pointer;
+
+    [Header ("Panels")]
+    public VRE_Panel _toolPanel;
 
     [Header("Transition Defaults")]
     public float _quickFade;
@@ -41,6 +46,10 @@ public class VRE_Globals : MonoBehaviour {
         // Parent UI elements to their correct transforms
         ApplyUIParentTransforms(_uiTop, _uiTopTransform);
         ApplyUIParentTransforms(_uiBottom, _uiBottomTransform);
+        ApplyUIParentTransforms(_toolModel.gameObject, _uiToolTransform);
+
+        // By default, tool base model is hidden
+        
 
     }
 
