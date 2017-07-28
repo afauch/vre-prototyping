@@ -50,15 +50,17 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
 
     void DoCursorEnter()
     {
-        Debug.Log("DoTriggerEnter heard on " + this.gameObject.name);
+        Debug.Log("DoCursorEnter heard on " + this.gameObject.name);
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Hover);
+        VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.8f);
 
     }
 
     void DoCursorExit()
     {
-        Debug.Log("DoTriggerExit called from " + this.gameObject.name);
+        Debug.Log("DoCursorExit called from " + this.gameObject.name);
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Default);
+        VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.05f);
 
     }
 

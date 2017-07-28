@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class VRE_Utilities : MonoBehaviour {
 
@@ -24,6 +25,11 @@ public class VRE_Utilities : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// This method changes the state of any entity extending the UIElement interface
+    /// </summary>
+    /// <param name="uiElement"></param>
+    /// <param name="toStateType"></param>
     public void ChangeStates(VRE_IUIElement uiElement, VRE_StateType toStateType)
     {
 
@@ -57,6 +63,71 @@ public class VRE_Utilities : MonoBehaviour {
 
         // finally change the UI Element's current state flag
         uiElement._currentStateType = toStateType;
+
+    }
+
+    /// <summary>
+    /// Utility Method for triggering a haptic pulse to a specific controller
+    /// </summary>
+    /// <param name="hand"></param>
+    /// <param name="strength"></param>
+    public static void TriggerHapticPulse(Hand hand, float strength)
+    {
+
+        VRTK_ControllerReference controllerReference = null;
+        if (hand == Hand.Right)
+        {
+            controllerReference = VRTK_ControllerReference.GetControllerReference(SDK_BaseController.ControllerHand.Right);
+        }
+        if (hand == Hand.Left)
+        {
+            controllerReference = VRTK_ControllerReference.GetControllerReference(SDK_BaseController.ControllerHand.Left);
+        }
+
+        TriggerHapticsAndAudio(controllerReference.model, controllerReference, strength, null);
+
+
+    }
+
+    /// <summary>
+    /// Utility Method for triggering a haptic pulse and an audio clip.
+    /// </summary>
+    /// <param name="worldObject"></param>
+    /// <param name="controllerReference"></param>
+    /// <param name="strength"></param>
+    /// <param name="audio"></param>
+    public static void TriggerHapticsAndAudio(GameObject worldObject, VRTK_ControllerReference controllerReference, float strength, AudioClip audio)
+    {
+
+        // AudioSource audioSource = worldObject.AddComponent<AudioSource>();
+        // audioSource.PlayOneShot(audio);
+        AudioSource audioSource = TryGetAudioSource(worldObject);
+        if (audio != null)
+        {
+            audioSource.clip = audio;
+            audioSource.Play();
+        }
+        VRTK_ControllerHaptics.TriggerHapticPulse(controllerReference, strength, strength, 1.0f);
+
+    }
+
+    /// <summary>
+    /// Utility method for checking for an audio source
+    /// </summary>
+    /// <param name="g"></param>
+    /// <returns></returns>
+    public static AudioSource TryGetAudioSource(GameObject g)
+    {
+
+        Debug.Log("TryGetAudioSource called");
+
+        AudioSource audioSource = g.GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = g.AddComponent<AudioSource>();
+        }
+
+        return audioSource;
 
     }
 
