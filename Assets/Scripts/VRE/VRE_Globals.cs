@@ -71,7 +71,8 @@ public enum VRE_StateType
     Default,
     Hidden,
     Hover,
-    Selected
+    Selected,
+    Locked
 }
 
 public class VRE_TransformSnapshot

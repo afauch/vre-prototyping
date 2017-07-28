@@ -14,7 +14,6 @@ public enum ToolType
 public class VRE_Tool : MonoBehaviour {
 
     public ToolType _toolType;
-    public int _toolIndex;
 
     public bool _laserDefaultOn;
     public GameObject _token;
@@ -34,6 +33,8 @@ public class VRE_Tool : MonoBehaviour {
         // Add the token to the RH tool model
         VRE_Globals._instance._toolModel.ShowToken(_token);
 
+        // Load up all pages in the panel
+        VRE_Globals._instance._toolPanel._pages = _toolOptionPages;
         // Change the panel to the correct page
         VRE_Globals._instance._toolPanel.ChangePageTo(_toolOptionPages[0]);
 
