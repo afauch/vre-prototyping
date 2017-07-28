@@ -8,6 +8,6 @@ public class VRE_Tool_ColorTool : MonoBehaviour, VRE_ITool {
     public GameObject _token { get; set; }
     public VRE_ToolModel _toolModel { get; set; }
 
-    public VRE_Page[] _toolOptionPages { get; set; }
+    public VRE_UIElement_Page[] _toolOptionPages { get; set; }
 
 }

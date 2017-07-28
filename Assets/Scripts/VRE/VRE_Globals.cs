@@ -24,7 +24,11 @@ public class VRE_Globals : MonoBehaviour {
     public GameObject _toolBaseModel;
     public VRE_Pointer _pointer;
 
-    public float _fadeTime;
+    [Header("Transition Defaults")]
+    public float _quickFade;
+    public string _quickFadeEasing;
+    public float _longFade;
+    public string _longFadeEasing;
 
     void Awake()
     {
@@ -59,4 +63,28 @@ public enum VRE_StateType
     Hidden,
     Hover,
     Selected
+}
+
+public class VRE_TransformSnapshot
+{
+
+    public Vector3 _position;
+    public Vector3 _localPosition;
+    public Quaternion _rotation;
+    public Quaternion _localRotation;
+    public Vector3 _lossyScale;
+    public Vector3 _localScale;
+
+    public VRE_TransformSnapshot(Transform t)
+    {
+
+        _position = t.position;
+        _localPosition = t.localPosition;
+        _rotation = t.rotation;
+        _localRotation = t.localRotation;
+        _lossyScale = t.lossyScale;
+        _localScale = t.localScale;
+
+    }
+
 }

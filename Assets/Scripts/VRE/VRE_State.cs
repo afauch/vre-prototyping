@@ -5,7 +5,19 @@ using UnityEngine;
 public class VRE_State : MonoBehaviour {
 
     public VRE_StateType _stateType;
-    public float _opacity;
-    public Transform _transform;
+
+    public Material _material;
+    public float _opacity = 1.0f;
+
+    public Vector3 _positionOffset;
+    public Vector3 _rotationOffset;
+    public Vector3 _scaleOffset;
+
+    void Start()
+    {
+
+                
+    }
+
 
 }

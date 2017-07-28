@@ -1,0 +1,78 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
+{
+
+    public bool _isContainer;
+
+    public GameObject _gameObject { get; set; }
+    public VRE_StateType _currentStateType { get; set; }
+    public VRE_TransformSnapshot _defaultTransform { get; set; }
+
+    public Dictionary<VRE_StateType, VRE_State> _states { get; set; }
+
+
+    void Start()
+    {
+
+        _defaultTransform = new VRE_TransformSnapshot(this.transform);
+
+        InitializeStates();
+
+        // Assign GameObject
+        if(_gameObject == null)
+        {
+            _gameObject = this.gameObject;
+        }
+
+    }
+
+
+    /// <summary>
+    /// Compile all the states 
+    /// </summary>
+    void InitializeStates()
+    {
+
+        _states = new Dictionary<VRE_StateType, VRE_State>();
+
+        VRE_State[] thisStates = gameObject.GetComponents<VRE_State>();
+        for(int i = 0; i < thisStates.Length; i++)
+        {
+            _states.Add(thisStates[i]._stateType, thisStates[i]);
+        }
+
+    }
+
+
+    void DoCursorEnter()
+    {
+        Debug.Log("DoTriggerEnter heard on " + this.gameObject.name);
+        VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Hover);
+
+    }
+
+    void DoCursorExit()
+    {
+        Debug.Log("DoTriggerExit called from " + this.gameObject.name);
+        VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Default);
+
+    }
+
+    void DoSelect()
+    {
+
+        Debug.Log("DoSelect called from " + this.gameObject.name);
+        VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Selected);
+
+    }
+
+    public void SetOpacity(float target)
+    {
+        
+    }
+
+}

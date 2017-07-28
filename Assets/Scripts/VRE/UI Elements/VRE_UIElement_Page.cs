@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
-public class VRE_Page : MonoBehaviour, VRE_IUIElement {
+public class VRE_UIElement_Page : MonoBehaviour, VRE_IUIElement {
 
-    public VRE_State _currentState;
+    public GameObject _gameObject { get; set; }
+    public VRE_StateType _currentStateType { get; set; }
+    public VRE_TransformSnapshot _defaultTransform { get; set; }
+
+    public Dictionary<VRE_StateType, VRE_State> _states { get; set; }
+
     public int _pageIndex;
-    public GameObject _gameObject;
+
 
     private void Start()
     {
@@ -23,7 +28,6 @@ public class VRE_Page : MonoBehaviour, VRE_IUIElement {
 
         Debug.Log("OnSelect called from " + gameObject.name);
 
-        SetOpacity(0.2f);
     }
 
 

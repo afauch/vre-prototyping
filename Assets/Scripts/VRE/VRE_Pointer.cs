@@ -74,7 +74,7 @@ public class VRE_Pointer : MonoBehaviour {
     void DoTriggerClicked(object sender, ControllerInteractionEventArgs e)
     {
         Debug.Log("Trigger Clicked");
-        _hitInfo.collider.gameObject.SendMessage("OnSelect");
+        _hitInfo.collider.gameObject.BroadcastMessage("DoSelect");
     }
 
     void DoHitUI(RaycastHit hit)

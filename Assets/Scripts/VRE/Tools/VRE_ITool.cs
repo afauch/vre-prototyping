@@ -8,6 +8,6 @@ public interface VRE_ITool {
     GameObject _token { get; set; }
     VRE_ToolModel _toolModel { get; set; }
 
-    VRE_Page[] _toolOptionPages { get; set; }
+    VRE_UIElement_Page[] _toolOptionPages { get; set; }
 
 }
