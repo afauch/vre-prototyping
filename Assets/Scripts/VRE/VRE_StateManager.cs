@@ -40,6 +40,10 @@ public class VRE_StateManager : MonoBehaviour {
             _toolsByType.Add(_tools[i]._toolType, _tools[i]);
         }
 
+        // Disable Pointer
+        VRE_Globals._instance._rightHandControllerEvents.GetComponent<VRTK_StraightPointerRenderer>().enabled = false;
+
+
     }
 
     private void Update()
@@ -77,6 +81,9 @@ public class VRE_StateManager : MonoBehaviour {
 
         // Reset Page
         VRE_Globals._instance._toolPanel.ChangePageTo(0);
+
+        VRE_Globals._instance._rightHandControllerEvents.GetComponent<VRTK_StraightPointerRenderer>().enabled = false;
+
 
     }
 

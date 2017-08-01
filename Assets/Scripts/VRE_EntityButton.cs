@@ -27,8 +27,8 @@ public class VRE_EntityButton : MonoBehaviour {
 
     public void DoSelect()
     {
-
-        SpawnInstance();
+        if(_entityToSpawn != null)
+            SpawnInstance();
 
     }
 
