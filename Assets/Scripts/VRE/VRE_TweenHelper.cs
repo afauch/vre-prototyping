@@ -25,7 +25,7 @@ public class VRE_TweenHelper
         m = SwapShaderToFadeMode(r.material);
 
         if (VRE_StateManager._instance._verbose)
-            Debug.Log("OpacityFade Called for " + g.name);
+            Debug.Log("OpacityFade Called for " + g.name + " \n with target opacity: " + targetOpacity);
 
         // elapsedTime
         float elapsedTime = 0;

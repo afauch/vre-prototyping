@@ -15,11 +15,32 @@ public class VRE_Utilities : MonoBehaviour {
     public void SetOpacity(GameObject g, float targetOpacity)
     {
 
+        if (VRE_StateManager._instance._verbose == true)
+            Debug.Log("SetOpacity called for " + g.name);
+
+
+        // For this object
+        Renderer r = g.GetComponent<Renderer>();
+        if(r != null)
+        {
+            Debug.Log(g.name + " has a renderer, will call VRE_TweenHelper.OpacityFade");
+            StartCoroutine(VRE_TweenHelper.OpacityFade(g, targetOpacity, VRE_Globals._instance._quickFade, VRE_Globals._instance._quickFadeEasing, "_Color"));
+        }
+
         // For each child in transform
         foreach (Transform child in g.transform)
         {
-            StartCoroutine(VRE_TweenHelper.OpacityFade(child.gameObject, targetOpacity, VRE_Globals._instance._quickFade, VRE_Globals._instance._quickFadeEasing, "_Color"));
-            Debug.Log(child.gameObject.name);
+            if (VRE_StateManager._instance._verbose == true)
+                Debug.Log("For loop recognizes " + child.gameObject.name);
+
+            Renderer cR = child.gameObject.GetComponent<Renderer>();
+
+            if (cR != null) {
+                if (VRE_StateManager._instance._verbose == true)
+                    Debug.Log(child.gameObject.name + " has a renderer, will call VRE_TweenHelper.OpacityFade");
+
+                StartCoroutine(VRE_TweenHelper.OpacityFade(child.gameObject, targetOpacity, VRE_Globals._instance._quickFade, VRE_Globals._instance._quickFadeEasing, "_Color"));
+            }
 
         }
 

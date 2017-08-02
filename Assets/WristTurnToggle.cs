@@ -6,7 +6,12 @@ public class WristTurnToggle : MonoBehaviour {
 
     public Transform _handTransform = null;
     public GameObject _restingPanel;
+    private VRE_Panel _restingPanelComponent;
     public GameObject _turnedPanel;
+    private VRE_Panel _turnedPanelComponent;
+
+    public bool _hide = true;
+    public float _opacityAmount;
 
     private bool _isTurned = false;
 
@@ -20,10 +25,14 @@ public class WristTurnToggle : MonoBehaviour {
 
         }
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        _restingPanelComponent = _restingPanel.GetComponent<VRE_Panel>();
+        _turnedPanelComponent = _turnedPanel.GetComponent<VRE_Panel>();
+
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         float handYAngleRaw = _handTransform.localRotation.eulerAngles.y;
 
@@ -49,11 +58,40 @@ public class WristTurnToggle : MonoBehaviour {
     {
 
         VRE_Utilities.TriggerHapticPulse(Hand.Left, 0.5f);
+
         Debug.Log("Toggle");
 
-        _restingPanel.SetActive(!isTurned);
-        _turnedPanel.SetActive(isTurned);
-        _isTurned = isTurned;
+        if (_hide)
+        {
+
+            Debug.Log("Hide other panel");
+
+            _restingPanel.SetActive(!isTurned);
+            _turnedPanel.SetActive(isTurned);
+            _isTurned = isTurned;
+
+
+        }
+        else
+        {
+
+            Debug.Log("Fade other panel");
+
+            if (isTurned)
+            {
+                _restingPanelComponent.SetOpacity(_opacityAmount);
+                _turnedPanelComponent.SetOpacity(1.0f);
+                _isTurned = true;
+            } else
+            {
+                _restingPanelComponent.SetOpacity(1.0f);
+                _turnedPanelComponent.SetOpacity(_opacityAmount);
+                _isTurned = false;
+            }
+
+
+
+        }
 
 
     }

@@ -87,4 +87,12 @@ public class VRE_Panel : MonoBehaviour {
 
     }
 
+    public void SetOpacity(float target)
+    {
+
+        Debug.Log("Set Opacity called from " + this.name);
+        VRE_Utilities._instance.SetOpacity(this.gameObject, target);
+
+    }
+
 }
