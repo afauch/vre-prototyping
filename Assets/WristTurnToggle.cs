@@ -11,7 +11,7 @@ public class WristTurnToggle : MonoBehaviour {
     private VRE_Panel _turnedPanelComponent;
 
     public bool _hide = true;
-    public float _opacityAmount;
+    public float _opacityAmount = 0.2f;
 
     private bool _isTurned = false;
 
