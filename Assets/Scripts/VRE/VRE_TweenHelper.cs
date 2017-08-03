@@ -540,6 +540,9 @@ public class VRE_TweenHelper
     public static IEnumerator ColorFade(GameObject g, Material to, float time, string ease)
     {
 
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("ColorFade called for " + g.name);
+
         // Enable Instancing
         to.enableInstancing = true;
 

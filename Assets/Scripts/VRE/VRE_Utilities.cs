@@ -58,7 +58,7 @@ public class VRE_Utilities : MonoBehaviour {
     /// <param name="toStateType"></param>
     public void ChangeStates(VRE_IUIElement uiElement, VRE_StateType toStateType)
     {
-        if (VRE_StateManager._instance._verbose)
+        // if (VRE_StateManager._instance._verbose)
             Debug.Log("VRE_Utilities ChangeStates called");
 
         // What's the current state?
@@ -81,6 +81,8 @@ public class VRE_Utilities : MonoBehaviour {
         StartCoroutine(VRE_TweenHelper.TweenLocalScaleWithEasing(uiElement._gameObject, uiElement._gameObject.transform.localScale, targetScale, VRE_Globals._instance._quickFade, VRE_Globals._instance._quickFadeEasing, false));
 
         // Material
+        // Debug.Log("Target State Material is: " + targetState._material.name);
+
         if (targetState._material != null)
         {
             Material targetMaterial = targetState._material;

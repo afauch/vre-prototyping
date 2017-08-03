@@ -16,6 +16,18 @@ public class VRE_State : MonoBehaviour {
     void Start()
     {
 
+        //if(_material = null)
+        //{
+
+        //    Renderer r = this.gameObject.GetComponent<Renderer>();
+        //    if (r != null)
+        //    {
+
+        //        _material = r.material;
+
+        //    }
+
+        //}
                 
     }
 

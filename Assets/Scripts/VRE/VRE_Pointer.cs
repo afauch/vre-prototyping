@@ -22,6 +22,8 @@ public class VRE_Pointer : MonoBehaviour {
     public float _lineWidth = 0.01f;
     private RaycastHit _hitInfo;
 
+    private bool _selectionIsClear = true;
+
     // Use this for initialization
     void Start()
     {
@@ -48,7 +50,9 @@ public class VRE_Pointer : MonoBehaviour {
         }
         else
         {
-            RenderLine(_lr, false);
+
+            ClearSelection();
+
         }
 
     }
@@ -91,6 +95,7 @@ public class VRE_Pointer : MonoBehaviour {
     {
         // Debug.Log("Intersected 3D UI: " + hit.collider.gameObject.name);
         RenderLine(_lr, true);
+        _selectionIsClear = false;
 
     }
 
@@ -124,6 +129,25 @@ public class VRE_Pointer : MonoBehaviour {
 
         // Set cursor position
         _cursor.transform.position = _hitInfo.point;
+
+    }
+
+    void ClearSelection()
+    {
+
+        if (!_selectionIsClear)
+        {
+            VRE_Cursor cursorComponent = _cursor.GetComponent<VRE_Cursor>();
+            if (cursorComponent._activeGameObject != null)
+            {
+                cursorComponent._activeGameObject.SendMessage("DoCursorExit", SendMessageOptions.DontRequireReceiver);
+            }
+            cursorComponent._activeGameObject = null;
+            _selectionIsClear = true;
+
+        }
+
+        RenderLine(_lr, false);
 
     }
 

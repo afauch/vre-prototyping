@@ -59,7 +59,7 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
 
     void DoCursorEnter()
     {
-        if (VRE_StateManager._instance._verbose)
+        //if (VRE_StateManager._instance._verbose)
             Debug.Log("DoCursorEnter heard on " + this.gameObject.name);
 
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Hover);
@@ -74,7 +74,7 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
 
     void DoCursorExit()
     {
-        if (VRE_StateManager._instance._verbose)
+        //if (VRE_StateManager._instance._verbose)
             Debug.Log("DoCursorExit called from " + this.gameObject.name);
 
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Default);
@@ -98,13 +98,6 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
         {
             VRE_Utilities.SendMessageToChildren(this.gameObject, "DoSelect");
         }
-
-    }
-
-    void ButtonAction()
-    {
-
-        
 
     }
 
