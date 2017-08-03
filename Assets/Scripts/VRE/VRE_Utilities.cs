@@ -58,7 +58,7 @@ public class VRE_Utilities : MonoBehaviour {
     /// <param name="toStateType"></param>
     public void ChangeStates(VRE_IUIElement uiElement, VRE_StateType toStateType)
     {
-        // if (VRE_StateManager._instance._verbose)
+        if (VRE_StateManager._instance._verbose)
             Debug.Log("VRE_Utilities ChangeStates called");
 
         // What's the current state?
