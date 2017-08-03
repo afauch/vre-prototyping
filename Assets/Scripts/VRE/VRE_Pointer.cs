@@ -71,6 +71,8 @@ public class VRE_Pointer : MonoBehaviour {
 
     }
 
+
+
     void DoTriggerClicked(object sender, ControllerInteractionEventArgs e)
     {
         Debug.Log("Trigger Clicked");

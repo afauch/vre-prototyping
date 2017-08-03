@@ -18,12 +18,21 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
     void Start()
     {
 
-        _defaultTransform = new VRE_TransformSnapshot(this.transform);
+        InitializeUIComponent();
 
+    }
+
+    /// <summary>
+    /// Generic method for initializing this UI component
+    /// </summary>
+    void InitializeUIComponent ()
+    {
+
+        _defaultTransform = new VRE_TransformSnapshot(this.transform);
         InitializeStates();
 
         // Assign GameObject
-        if(_gameObject == null)
+        if (_gameObject == null)
         {
             _gameObject = this.gameObject;
         }
