@@ -29,6 +29,8 @@ public class VRE_Pointer : MonoBehaviour {
         // Subscribe to events
         _vrtkControllerEvents = _vrtkControllerEvents ?? this.gameObject.GetComponent<VRTK_ControllerEvents>();
         _vrtkControllerEvents.TriggerClicked += new ControllerInteractionEventHandler(DoTriggerClicked);
+        _vrtkControllerEvents.TriggerUnclicked += new ControllerInteractionEventHandler(DoTriggerUnclicked);
+
 
         // Setup LineRenderer
         InitLineRenderer();
@@ -71,13 +73,18 @@ public class VRE_Pointer : MonoBehaviour {
 
     }
 
-
-
     void DoTriggerClicked(object sender, ControllerInteractionEventArgs e)
     {
         Debug.Log("Trigger Clicked");
-        if(_hitInfo.collider != null)
+        if (_hitInfo.collider != null)
             _hitInfo.collider.gameObject.BroadcastMessage("DoSelect", SendMessageOptions.DontRequireReceiver);
+    }
+
+    void DoTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
+    {
+        Debug.Log("Trigger Unclicked");
+        if(_hitInfo.collider != null)
+            _hitInfo.collider.gameObject.BroadcastMessage("DoTriggerUnclicked", SendMessageOptions.DontRequireReceiver);
     }
 
     void DoHitUI(RaycastHit hit)
