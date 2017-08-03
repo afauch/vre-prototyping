@@ -6,7 +6,7 @@ using UnityEngine;
 public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
 {
 
-    public bool _isContainer;
+    public bool _sendEventsToChildren = false;
 
     public GameObject _gameObject { get; set; }
     public VRE_StateType _currentStateType { get; set; }
@@ -65,6 +65,11 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Hover);
         VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.8f);
 
+        if(_sendEventsToChildren)
+        {
+            VRE_Utilities.SendMessageToChildren(this.gameObject, "DoCursorEnter");
+        }
+
     }
 
     void DoCursorExit()
@@ -75,6 +80,11 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Default);
         // VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.05f);
 
+        if (_sendEventsToChildren)
+        {
+            VRE_Utilities.SendMessageToChildren(this.gameObject, "DoCursorExit");
+        }
+
     }
 
     void DoSelect()
@@ -83,6 +93,11 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
             Debug.Log("DoSelect called from " + this.gameObject.name);
 
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Selected);
+
+        if (_sendEventsToChildren)
+        {
+            VRE_Utilities.SendMessageToChildren(this.gameObject, "DoSelect");
+        }
 
     }
 

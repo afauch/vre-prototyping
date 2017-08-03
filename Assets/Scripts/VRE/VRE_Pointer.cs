@@ -77,14 +77,14 @@ public class VRE_Pointer : MonoBehaviour {
     {
         Debug.Log("Trigger Clicked");
         if (_hitInfo.collider != null)
-            _hitInfo.collider.gameObject.BroadcastMessage("DoSelect", SendMessageOptions.DontRequireReceiver);
+            _hitInfo.collider.gameObject.SendMessage("DoSelect", SendMessageOptions.DontRequireReceiver);
     }
 
     void DoTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
     {
         Debug.Log("Trigger Unclicked");
         if(_hitInfo.collider != null)
-            _hitInfo.collider.gameObject.BroadcastMessage("DoTriggerUnclicked", SendMessageOptions.DontRequireReceiver);
+            _hitInfo.collider.gameObject.SendMessage("DoTriggerUnclicked", SendMessageOptions.DontRequireReceiver);
     }
 
     void DoHitUI(RaycastHit hit)

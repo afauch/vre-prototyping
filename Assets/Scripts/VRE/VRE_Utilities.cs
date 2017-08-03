@@ -12,6 +12,11 @@ public class VRE_Utilities : MonoBehaviour {
         _instance = this;
     }
 
+    /// <summary>
+    /// Sets opacity of this GameObject and all its children
+    /// </summary>
+    /// <param name="g"></param>
+    /// <param name="targetOpacity"></param>
     public void SetOpacity(GameObject g, float targetOpacity)
     {
 
@@ -150,6 +155,20 @@ public class VRE_Utilities : MonoBehaviour {
         }
 
         return audioSource;
+
+    }
+
+    public static void SendMessageToChildren(GameObject g, string message)
+    {
+
+        // For each child in transform
+        foreach (Transform child in g.transform)
+        {
+
+            Debug.Log("Sending message: " + message + " to " + child.gameObject.name);
+
+            child.gameObject.SendMessage(message, SendMessageOptions.DontRequireReceiver);
+        }
 
     }
 
