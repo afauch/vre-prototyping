@@ -86,8 +86,21 @@ public class VRE_Utilities : MonoBehaviour {
         if (targetState._material != null)
         {
             Material targetMaterial = targetState._material;
-            StartCoroutine(VRE_TweenHelper.ColorFade(uiElement._gameObject, targetMaterial, VRE_Globals._instance._quickFade, VRE_Globals._instance._quickFadeEasing));
+
+            if (targetState._tweenMaterial)
+            {
+                StartCoroutine(VRE_TweenHelper.ColorFade(uiElement._gameObject, targetMaterial, VRE_Globals._instance._quickFade, VRE_Globals._instance._quickFadeEasing));
+            } else
+            {
+                // TODO: Add a clean material swap here
+            }
+
+
         }
+
+        // Trigger Haptics
+        if (targetState._triggerHaptics)
+            TriggerHapticPulse(Hand.Right, targetState._hapticStrength);
 
         // finally change the UI Element's current state flag
         uiElement._currentStateType = toStateType;

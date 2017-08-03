@@ -63,7 +63,7 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
             Debug.Log("DoCursorEnter heard on " + this.gameObject.name);
 
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Hover);
-        VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.8f);
+        // VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.8f);
 
         if(_sendEventsToChildren)
         {
