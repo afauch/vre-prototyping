@@ -23,6 +23,7 @@ public class VRE_Pointer : MonoBehaviour {
     private RaycastHit _hitInfo;
 
     private bool _selectionIsClear = true;
+    [HideInInspector] public GameObject _selection;
 
     // Use this for initialization
     void Start()
@@ -96,6 +97,7 @@ public class VRE_Pointer : MonoBehaviour {
         // Debug.Log("Intersected 3D UI: " + hit.collider.gameObject.name);
         RenderLine(_lr, true);
         _selectionIsClear = false;
+        _selection = hit.collider.gameObject;
 
     }
 
@@ -129,6 +131,7 @@ public class VRE_Pointer : MonoBehaviour {
 
         // Set cursor position
         _cursor.transform.position = _hitInfo.point;
+        // _cursor.transform.rotation = _vrtkControllerEvents.gameObject.transform.rotation;
 
     }
 
@@ -144,6 +147,7 @@ public class VRE_Pointer : MonoBehaviour {
             }
             cursorComponent._activeGameObject = null;
             _selectionIsClear = true;
+            _selection = null;
 
         }
 

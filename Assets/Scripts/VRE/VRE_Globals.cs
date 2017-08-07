@@ -31,6 +31,8 @@ public class VRE_Globals : MonoBehaviour {
     [Header("General")]
     public Transform _worldParent;
     public VRE_Pointer _pointer;
+    public GameObject _toolPointer;
+    public GameObject _grabPointer;
 
 
     [Header("Transition Defaults")]

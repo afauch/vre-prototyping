@@ -46,7 +46,7 @@ public class VRE_Tool : MonoBehaviour {
         if(_laserDefaultOn)
         {
             // TODO: Turn on laser here
-            VRE_Globals._instance._rightHandControllerEvents.GetComponent<VRTK_StraightPointerRenderer>().enabled = true;
+            VRE_Globals._instance._toolPointer.GetComponent<VRTK_StraightPointerRenderer>().enabled = true;
         }
 
         VRE_StateManager._instance._toolIsEquipped = true;

@@ -26,22 +26,27 @@ public class FollowRootTransform : MonoBehaviour {
         _headsetTransform = VRTK_DeviceFinder.DeviceTransform(VRTK_DeviceFinder.Devices.Headset);
         // Debug.Log(_headsetTransform.gameObject.name);
 
-       // Update body rotation
-       Transform _thisRotation = this.gameObject.transform;
+        if (_headsetTransform != null)
+        {
 
-        Vector3 _newRotation = new Vector3(
-            0.0f,
-            _headsetTransform.rotation.eulerAngles.y,
-            0.0f
-            );
+            // Update body rotation
+            Transform _thisRotation = this.gameObject.transform;
 
-        _thisRotation.eulerAngles = _newRotation;
+            Vector3 _newRotation = new Vector3(
+                0.0f,
+                _headsetTransform.rotation.eulerAngles.y,
+                0.0f
+                );
+
+            _thisRotation.eulerAngles = _newRotation;
 
 
-        // Update body position
-        this.gameObject.transform.position =
-            new Vector3(_headsetTransform.position.x, _YOffset, _headsetTransform.position.z) +
-            (this.gameObject.transform.forward * _forwardOffset);
+            // Update body position
+            this.gameObject.transform.position =
+                new Vector3(_headsetTransform.position.x, _YOffset, _headsetTransform.position.z) +
+                (this.gameObject.transform.forward * _forwardOffset);
+
+        }
 
 
     }

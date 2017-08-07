@@ -110,6 +110,8 @@ namespace VRTK.GrabAttachMechanics
         {
             if (grabbedSnapHandle == null)
             {
+                Debug.Log("OBJ NAME: " + obj.name);
+                Debug.Log("CONTROLLER ATTACH POINT: " + controllerAttachPoint.name);
                 obj.transform.position = controllerAttachPoint.transform.position;
             }
             else

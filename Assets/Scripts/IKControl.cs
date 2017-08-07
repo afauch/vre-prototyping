@@ -24,6 +24,16 @@ public class IKControl : MonoBehaviour {
         lookObj = _sdkBaseHeadset.GetHeadset();
 
     }
+
+    void Update ()
+    {
+
+        if(lookObj = null)
+        {
+            lookObj = _sdkBaseHeadset.GetHeadset();
+        }
+
+    }
     
     //a callback for calculating IK
     void OnAnimatorIK()
