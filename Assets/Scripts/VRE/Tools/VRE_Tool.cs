@@ -19,6 +19,7 @@ public class VRE_Tool : MonoBehaviour {
     public ToolType _toolType;
 
     public bool _laserDefaultOn;
+    public bool _grabEnabled;
     public GameObject _token;
     // public VRE_UIElement_Page[] _toolOptionPages;
     public int _toolPageIndex;
@@ -44,10 +45,10 @@ public class VRE_Tool : MonoBehaviour {
 
         // Turn on the laser if necessary
         if(_laserDefaultOn)
-        {
-            // TODO: Turn on laser here
             VRE_Globals._instance._toolPointer.GetComponent<VRTK_StraightPointerRenderer>().enabled = true;
-        }
+
+        if (!_grabEnabled)
+            VRE_Globals._instance._grabPointer.SetActive(false);
 
         VRE_StateManager._instance._toolIsEquipped = true;
 

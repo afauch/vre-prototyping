@@ -255,6 +255,83 @@ public class VRE_TweenHelper
     }
 
     /// <summary>
+    /// Method to move an object based on its local position
+    /// </summary>
+    /// <param name="g"></param>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <param name="time"></param>
+    /// <param name="ease"></param>
+    /// <param name="destroy"></param>
+    /// <returns></returns>
+    public static IEnumerator TweenPositionWithEasing(GameObject g, Vector3 start, Vector3 end, float time, string ease, bool destroy)
+    {
+        if (VRE_StateManager._instance._verbose)
+            Debug.Log("TweenPositionWithEasing called for " + g.name + "with start at " + start + " and end at " + end);
+
+        float elapsedTime = 0;
+
+        Vector3 startPos = start;
+
+        Vector3 endPos = end;
+
+        while (elapsedTime < time)
+        {
+
+            // this lerps transform Vector3
+            float t = elapsedTime / time;
+            // easing function - this can be tweaked
+            // t = t * t * t * (t * (6f * t - 15f) + 10f);
+
+            switch (ease)
+            {
+                case "Back":
+                    t = Easing.Back.InOut(t);
+                    break;
+                case "Bounce":
+                    t = Easing.Bounce.InOut(t);
+                    break;
+                case "Circular":
+                    t = Easing.Circular.InOut(t);
+                    break;
+                case "Cubic":
+                    t = Easing.Cubic.InOut(t);
+                    break;
+                case "Elastic":
+                    t = Easing.Elastic.InOut(t);
+                    break;
+                case "Exponential":
+                    t = Easing.Exponential.InOut(t);
+                    break;
+                case "Linear":
+                    t = Easing.Linear(t);
+                    break;
+                case "Quadratic":
+                    t = Easing.Quadratic.InOut(t);
+                    break;
+                case "Quartic":
+                    t = Easing.Quartic.InOut(t);
+                    break;
+                case "Quintic":
+                    t = Easing.Quintic.InOut(t);
+                    break;
+                default:
+                    t = Easing.Cubic.InOut(t);
+                    break;
+            }
+
+            g.transform.position = Vector3.Lerp(startPos, endPos, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        if (destroy)
+            GameObject.Destroy(g);
+
+    }
+
+
+    /// <summary>
     /// Method to move an object based on its local rotation
     /// </summary>
     /// <param name="g"></param>

@@ -85,7 +85,7 @@ public class VRE_Pointer : MonoBehaviour {
             _hitInfo.collider.gameObject.SendMessage("DoSelect", SendMessageOptions.DontRequireReceiver);
     }
 
-    void DoTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
+    public void DoTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
     {
         Debug.Log("Trigger Unclicked");
         if(_hitInfo.collider != null)
@@ -101,7 +101,7 @@ public class VRE_Pointer : MonoBehaviour {
 
     }
 
-    void RenderLine(LineRenderer lr, bool toggle)
+    public void RenderLine(LineRenderer lr, bool toggle)
     {
         // Debug.Log("RenderLine called");
 

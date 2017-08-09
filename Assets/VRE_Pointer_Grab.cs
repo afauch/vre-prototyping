@@ -9,6 +9,9 @@ public class VRE_Pointer_Grab : MonoBehaviour {
     public VRE_Pointer _vrePointer = null;
 
     private FixedJoint _currentJoint = null;
+    public bool _showLaserOnTrigger = true;
+
+    public bool _isGrabbing = false;
 
     // Use this for initialization
     void Start () {
@@ -33,9 +36,14 @@ public class VRE_Pointer_Grab : MonoBehaviour {
     void DoTriggerClicked(object sender, ControllerInteractionEventArgs e)
     {
 
+
+
         //
         if(_vrePointer._selection != null)
         {
+
+            if (_showLaserOnTrigger)
+                _vrePointer._showLine = true;
 
             Grab();            
 
@@ -46,9 +54,11 @@ public class VRE_Pointer_Grab : MonoBehaviour {
     void DoTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
     {
 
-        Debug.Log(_vrePointer._selection.name);
         if (_vrePointer._selection != null)
         {
+
+            if (_showLaserOnTrigger)
+                _vrePointer._showLine = false;
 
             UnGrab();
 
@@ -56,7 +66,7 @@ public class VRE_Pointer_Grab : MonoBehaviour {
 
     }
 
-    void Grab ()
+    public void Grab ()
     {
 
         // Parent the cursor to the hand
@@ -67,9 +77,12 @@ public class VRE_Pointer_Grab : MonoBehaviour {
 
         _vrePointer._selection.transform.SetParent(_vrePointer._cursor.transform);
 
+        // Set the state
+        _isGrabbing = true;
+
     }
 
-    void UnGrab()
+    public void UnGrab()
     {
 
         // Make the object non-kinematic
@@ -77,6 +90,8 @@ public class VRE_Pointer_Grab : MonoBehaviour {
         _vrePointer._selection.transform.SetParent(VRE_Globals._instance._worldParent);
         _vrePointer._cursor.transform.SetParent(VRE_Globals._instance._worldParent);
 
+        // Set the state
+        _isGrabbing = false;
 
     }
 

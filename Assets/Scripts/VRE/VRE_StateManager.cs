@@ -83,6 +83,7 @@ public class VRE_StateManager : MonoBehaviour {
         VRE_Globals._instance._toolPanel.ChangePageTo(0);
 
         VRE_Globals._instance._toolPointer.GetComponent<VRTK_StraightPointerRenderer>().enabled = false;
+        VRE_Globals._instance._grabPointer.SetActive(true);
 
 
     }

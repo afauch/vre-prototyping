@@ -27,13 +27,12 @@ public class VRE_Globals : MonoBehaviour {
     [Header("UI - Right Hand")]
     public VRE_ToolModel _toolModel;
     public Transform _uiToolTransform;
-
-    [Header("General")]
-    public Transform _worldParent;
     public VRE_Pointer _pointer;
     public GameObject _toolPointer;
     public GameObject _grabPointer;
 
+    [Header("General")]
+    public Transform _worldParent;
 
     [Header("Transition Defaults")]
     public float _quickFade;
