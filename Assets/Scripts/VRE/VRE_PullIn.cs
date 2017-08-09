@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PullIn : MonoBehaviour {
+public class VRE_PullIn : MonoBehaviour {
 
     public VRE_Pointer_Grab _vrePointerGrab;
     public Transform _destination;
@@ -36,6 +36,7 @@ public class PullIn : MonoBehaviour {
             g.GetComponent<Rigidbody>().isKinematic = true;
             StartCoroutine(VRE_TweenHelper.TweenPositionWithEasing(g, g.transform.position, _destination.position, VRE_Globals._instance._quickFade, VRE_Globals._instance._quickFadeEasing, false));
             g.transform.SetParent(VRE_Globals._instance._worldParent);
+            _vrePointerGrab.UnGrab();
             g.SetActive(true);
 
         }
