@@ -74,8 +74,10 @@ public class VRE_UIElement_ButtonComponent : MonoBehaviour, VRE_IUIElement
 
     void DoCursorExit()
     {
-        if (VRE_StateManager._instance._verbose)
-            Debug.Log("DoCursorExit called from " + this.gameObject.name);
+
+        Debug.Log("DoCursorExit called from " + this.gameObject.name);
+
+        // if (VRE_StateManager._instance._verbose)
 
         VRE_Utilities._instance.ChangeStates(this, VRE_StateType.Default);
         // VRE_Utilities.TriggerHapticPulse(Hand.Right, 0.05f);

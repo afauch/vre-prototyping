@@ -45,6 +45,9 @@ public class VRE_UIElement_Picklist : MonoBehaviour, VRE_IUIElement
             g.transform.SetParent(this.gameObject.transform);
             // Position it based on the Y Offset
             g.transform.localPosition = new Vector3(0.0f, 0.0f, ((i + 1) * _zOffset));
+            g.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            g.transform.localRotation = Quaternion.identity;
+
             // Index the Choice component
             _choices[i] = g.GetComponent<VRE_UIElement_PicklistChoice>();
             _choices[i]._choiceIndex = i;

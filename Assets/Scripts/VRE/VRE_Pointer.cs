@@ -51,8 +51,10 @@ public class VRE_Pointer : MonoBehaviour {
         }
         else
         {
-
-            ClearSelection();
+            if (!_selectionIsClear)
+            {
+                ClearSelection();
+            }
 
         }
 
@@ -138,8 +140,8 @@ public class VRE_Pointer : MonoBehaviour {
     void ClearSelection()
     {
 
-        if (!_selectionIsClear)
-        {
+        Debug.Log("ClearSelection called");
+
             VRE_Cursor cursorComponent = _cursor.GetComponent<VRE_Cursor>();
             if (cursorComponent._activeGameObject != null)
             {
@@ -148,8 +150,6 @@ public class VRE_Pointer : MonoBehaviour {
             cursorComponent._activeGameObject = null;
             _selectionIsClear = true;
             _selection = null;
-
-        }
 
         RenderLine(_lr, false);
 
