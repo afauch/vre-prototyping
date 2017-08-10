@@ -12970,6 +12970,7 @@ GameObject:
   - component: {fileID: 1042212110}
   - component: {fileID: 1042212109}
   - component: {fileID: 1042212108}
+  - component: {fileID: 1042212111}
   m_Layer: 8
   m_Name: pull-button
   m_TagString: Untagged
@@ -13086,6 +13087,28 @@ MonoBehaviour:
   _stateType: 0
   _material: {fileID: 0}
   _opacity: 1
+  _positionOffset: {x: 0, y: 0, z: 0}
+  _rotationOffset: {x: 0, y: 0, z: 0}
+  _scaleOffset: {x: 0, y: 0, z: 0}
+  _tweenMaterial: 0
+  _playAudio: 0
+  _audioClip: {fileID: 0}
+  _triggerHaptics: 0
+  _hapticStrength: 0
+--- !u!114 &1042212111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1042212103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19452306113a40d4bbf9f98fa9e2c84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateType: 1
+  _material: {fileID: 0}
+  _opacity: 0
   _positionOffset: {x: 0, y: 0, z: 0}
   _rotationOffset: {x: 0, y: 0, z: 0}
   _scaleOffset: {x: 0, y: 0, z: 0}

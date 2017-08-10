@@ -8,6 +8,10 @@ public class VRE_Pointer_Grab : MonoBehaviour {
     public VRTK_ControllerEvents _vrtkControllerEvents;
     public VRE_Pointer _vrePointer = null;
 
+    public delegate void GrabDelegate();
+    public event GrabDelegate _onGrab;
+    public event GrabDelegate _onUngrab;
+
     private FixedJoint _currentJoint = null;
     public bool _showLaserOnTrigger = true;
 
@@ -80,6 +84,12 @@ public class VRE_Pointer_Grab : MonoBehaviour {
         // Set the state
         _isGrabbing = true;
 
+        // Delegate events
+        if(_onGrab != null)
+        {
+            _onGrab();
+        }
+
     }
 
     public void UnGrab()
@@ -92,6 +102,12 @@ public class VRE_Pointer_Grab : MonoBehaviour {
 
         // Set the state
         _isGrabbing = false;
+
+        // Delegate events
+        if (_onUngrab != null)
+        {
+            _onUngrab();
+        }
 
     }
 

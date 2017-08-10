@@ -9,6 +9,13 @@ public class VRE_PullIn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        // Subscribe to Grab events
+        _vrePointerGrab._onGrab += DoGrab;
+        _vrePointerGrab._onUngrab += DoUngrab;
+
+        // Set state to hidden
+        ToggleVisibility(false);
 		
 	}
 	
@@ -16,6 +23,23 @@ public class VRE_PullIn : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void DoGrab()
+    {
+        Debug.Log("Pull Button Heard Grab Event");
+
+        // Change state to default
+        ToggleVisibility(true);
+
+    }
+
+    public void DoUngrab()
+    {
+        Debug.Log("Pull Button Heard Ungrab Event");
+        // Change state to default
+        ToggleVisibility(false);
+
+    }
 
     public void DoSelect()
     {
@@ -43,6 +67,23 @@ public class VRE_PullIn : MonoBehaviour {
 
     }
 
+    
+    void ToggleVisibility(bool visible)
+    {
+
+        foreach(Transform child in this.gameObject.transform)
+        {
+            child.gameObject.SetActive(visible);
+        }
+
+    }
+
+    // Unsubscribe to events
+    private void OnDestroy()
+    {
+        _vrePointerGrab._onGrab -= DoGrab;
+        _vrePointerGrab._onUngrab -= DoUngrab;
+    }
 
 
 }
