@@ -10,6 +10,7 @@ public class VRE_BackToMenu : MonoBehaviour {
     {
 
         _panel.ChangePageTo(0);
+        VRE_StateManager._instance.DropTool();
 
     }   
 

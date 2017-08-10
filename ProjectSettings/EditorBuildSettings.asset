@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/02 - Real Models 12.unity
-    guid: 2413801fb94492841975861cbd2ce325
+    path: Assets/Scenes/20.unity
+    guid: 7601158cc51d3f947862a231963aac6c

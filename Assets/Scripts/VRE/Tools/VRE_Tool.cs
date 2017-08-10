@@ -11,6 +11,7 @@ public enum ToolType
     Clone,
     Group,
     Stretch,
+    Save,
     Delete
 }
 
