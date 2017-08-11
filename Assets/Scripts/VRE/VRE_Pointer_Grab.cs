@@ -25,10 +25,30 @@ public class VRE_Pointer_Grab : MonoBehaviour {
             _vrePointer = this.gameObject.GetComponent<VRE_Pointer>();
         }
 
+        // Make sure we're subscribed to the right events
+        VRE_Globals._instance._onSetupChange += SubscribeEvents;
+        SubscribeEvents();
+
+    }
+
+    // Assign Event Subscriptions
+    private void SubscribeEvents()
+    {
+
+        Debug.Log("SubscribeEvents for VRE_Pointer_Grab called");
+
         // Subscribe to events
         _vrtkControllerEvents = _vrtkControllerEvents ?? this.gameObject.GetComponent<VRTK_ControllerEvents>();
-        _vrtkControllerEvents.TriggerClicked += new ControllerInteractionEventHandler(DoTriggerClicked);
-        _vrtkControllerEvents.TriggerUnclicked += new ControllerInteractionEventHandler(DoTriggerUnclicked);
+
+        if (VRE_Globals._instance._isOculus) // Touch Handling
+        {
+            _vrtkControllerEvents.TriggerPressed += new ControllerInteractionEventHandler(DoTriggerClicked);
+            _vrtkControllerEvents.TriggerReleased += new ControllerInteractionEventHandler(DoTriggerUnclicked);
+        } else
+        {
+            _vrtkControllerEvents.TriggerClicked += new ControllerInteractionEventHandler(DoTriggerClicked);
+            _vrtkControllerEvents.TriggerUnclicked += new ControllerInteractionEventHandler(DoTriggerUnclicked);
+        }
 
     }
 	

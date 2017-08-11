@@ -25,6 +25,10 @@ public class PaletteObject : MonoBehaviour {
 
         // listen for controller events
         _vrtkControllerEvents.TriggerClicked += new ControllerInteractionEventHandler(DoTriggerClicked);
+        if(VRE_Globals._instance._isOculus)
+        {
+            _vrtkControllerEvents.TriggerPressed += new ControllerInteractionEventHandler(DoTriggerClicked);
+        }
 
         _renderer = this.gameObject.GetComponent<Renderer>();
         _defaultMaterialColor = _renderer.material.color;

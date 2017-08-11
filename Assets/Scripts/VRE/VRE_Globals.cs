@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 /// <summary>
 /// Monobehaviour Globals Class
@@ -8,6 +9,12 @@ using UnityEngine;
 public class VRE_Globals : MonoBehaviour {
 
     public static VRE_Globals _instance;
+
+    [Header("SDK")]
+    public bool _isOculus;
+    private VRTK_SDKSetup _sdkSetup = null;
+    public delegate void SetupChangeDelegate();
+    public event SetupChangeDelegate _onSetupChange;
 
     [Header("Hands")]
     public GameObject _leftHandAvatarModel;
@@ -52,9 +59,45 @@ public class VRE_Globals : MonoBehaviour {
         ApplyUIParentTransforms(_uiTop, _uiTopTransform);
         ApplyUIParentTransforms(_uiBottom, _uiBottomTransform);
         ApplyUIParentTransforms(_toolModel.gameObject, _uiToolTransform);
-
-        // By default, tool base model is hidden
         
+
+    }
+
+    void Update()
+    {
+        CheckAssignSDK();
+    }
+
+    void CheckAssignSDK()
+    {
+        // Which SDK are we using?
+        // Debug.Log("Loaded setup is: " + VRTK_SDKManager.instance.loadedSetup);
+        VRTK_SDKSetup setupNow = VRTK_SDKManager.instance.loadedSetup;
+
+        // If the setup has changed
+        if (setupNow != _sdkSetup)
+        {
+            // Reassign the current setup
+            _sdkSetup = setupNow;
+
+            // Check if it's Oculus
+            if (VRTK_DeviceFinder.GetHeadsetType() == VRTK.VRTK_DeviceFinder.Headsets.OculusRift || VRTK_DeviceFinder.GetHeadsetType() == VRTK.VRTK_DeviceFinder.Headsets.OculusRiftCV1)
+            {
+                Debug.Log("Confirmed that new setup is Oculus");
+                _isOculus = true;
+            } else
+            {
+                _isOculus = false;
+            }
+
+            // Call the delegates to resubscribe events
+            if (_onSetupChange != null)
+                _onSetupChange();
+
+            // Debug
+            Debug.Log("SDK Setup has changed.");
+
+        }
 
     }
 

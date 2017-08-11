@@ -29,11 +29,9 @@ public class VRE_Pointer : MonoBehaviour {
     void Start()
     {
 
-        // Subscribe to events
-        _vrtkControllerEvents = _vrtkControllerEvents ?? this.gameObject.GetComponent<VRTK_ControllerEvents>();
-        _vrtkControllerEvents.TriggerClicked += new ControllerInteractionEventHandler(DoTriggerClicked);
-        _vrtkControllerEvents.TriggerUnclicked += new ControllerInteractionEventHandler(DoTriggerUnclicked);
-
+        // Make sure we're subscribed to the right events
+        VRE_Globals._instance._onSetupChange += SubscribeEvents;
+        SubscribeEvents();
 
         // Setup LineRenderer
         InitLineRenderer();
@@ -58,6 +56,25 @@ public class VRE_Pointer : MonoBehaviour {
 
         }
 
+    }
+
+    private void SubscribeEvents()
+    {
+
+        Debug.Log("SubscribeEvents for VRE_Pointer_Grab called");
+
+        // Subscribe to events
+        _vrtkControllerEvents = _vrtkControllerEvents ?? this.gameObject.GetComponent<VRTK_ControllerEvents>();
+
+        if (VRE_Globals._instance._isOculus)
+        {
+            _vrtkControllerEvents.TriggerPressed += new ControllerInteractionEventHandler(DoTriggerClicked);
+            _vrtkControllerEvents.TriggerReleased += new ControllerInteractionEventHandler(DoTriggerUnclicked);
+        } else
+        {
+            _vrtkControllerEvents.TriggerClicked += new ControllerInteractionEventHandler(DoTriggerClicked);
+            _vrtkControllerEvents.TriggerUnclicked += new ControllerInteractionEventHandler(DoTriggerUnclicked);
+        }
     }
 
 
@@ -140,7 +157,7 @@ public class VRE_Pointer : MonoBehaviour {
     void ClearSelection()
     {
 
-        Debug.Log("ClearSelection called");
+        // Debug.Log("ClearSelection called");
 
             VRE_Cursor cursorComponent = _cursor.GetComponent<VRE_Cursor>();
             if (cursorComponent._activeGameObject != null)

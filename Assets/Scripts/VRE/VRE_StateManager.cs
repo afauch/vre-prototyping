@@ -16,7 +16,6 @@ public class VRE_StateManager : MonoBehaviour {
 
     public VRTK_ControllerEvents _vrtkControllerEvents;
 
-
     void Awake()
     {
         _instance = this;
